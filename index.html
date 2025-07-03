@@ -19,12 +19,18 @@
       padding: 2rem;
     }
     h1 {
-      font-weight: 700;
-      font-size: 2.5rem;
-      color: #f0e6f6;
-      text-shadow: 0 0 8px rgba(131, 58, 180, 0.7);
-      margin-bottom: 1.5rem;
+      font-weight: 900;
+      font-size: 3.5rem;
+      color: #a8c0ff;
       text-align: center;
+      text-shadow:
+        0 0 8px #a8c0ff,
+        0 0 20px #667eea,
+        0 0 30px #667eea,
+        0 0 40px #667eea,
+        0 0 50px #4353ff;
+      margin-bottom: 2rem;
+      font-family: 'Open Sans', sans-serif;
     }
     ::placeholder {
       color: #cbd5e1;
@@ -106,36 +112,23 @@
       overflow-y: auto;
     }
     .dream-entry {
-  font-family: 'Merriweather', serif;
-  background: rgba(255 255 255 / 0.15);
-  border-left: 4px solid #7c3aed;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  color: #fafafa;
-  box-shadow: 0 4px 6px rgb(124 58 237 / 0.5);
-  margin-bottom: 1rem;
-  font-style: italic;
-  white-space: pre-wrap;
-}
+      font-family: 'Open Sans', sans-serif;
+      background: rgba(255 255 255 / 0.15);
+      border-left: 4px solid #7c3aed;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      color: #fafafa;
+      box-shadow: 0 4px 6px rgb(124 58 237 / 0.5);
+      margin-bottom: 1rem;
+      font-style: italic;
+      white-space: pre-wrap;
     }
   </style>
 </head>
 <body>
   <div class="container" role="main">
-    h1 {
-  font-weight: 900;
-  font-size: 3.5rem;
-  color: #a8c0ff;
-  text-align: center;
-  text-shadow:
-    0 0 8px #a8c0ff,
-    0 0 20px #667eea,
-    0 0 30px #667eea,
-    0 0 40px #667eea,
-    0 0 50px #4353ff;
-  margin-bottom: 2rem;
-  font-family: 'Open Sans', sans-serif;
-}
+    <h1>My Dream Journal</h1>
+
     <textarea
       id="dreamInput"
       rows="5"
@@ -202,5 +195,3 @@
   </script>
 </body>
 </html>
-
- 
