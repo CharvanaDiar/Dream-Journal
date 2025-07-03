@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dream Journal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to top right, #0f0c29, #302b63, #24243e);
+      font-family: 'Georgia', serif;
+    }
+    ::placeholder {
+      color: #cbd5e1;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-100 p-6 flex flex-col items-center">
+
+  <h1 class="text-3xl mb-6 tracking-wide">🌙 My Dream Journal</h1>
+
+  <textarea id="dreamInput"
+            rows="5"
+            placeholder="Write your dream here..."
+            class="w-full max-w-xl p-4 mb-4 bg-white/10 backdrop-blur-md rounded-lg border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+  </textarea>
+
+  <button onclick="saveDream()"
+          class="px-6 py-2 bg-indigo-500 hover:bg-indigo-600 rounded-full shadow-md transition-all">
+    Save Dream
+  </button>
+
+  <div id="dreamLog" class="mt-8 w-full max-w-xl space-y-4">
+    <!-- Past dreams will appear here -->
+  </div>
+
+  <script>
+    const dreamInput = document.getElementById("dreamInput");
+    const dreamLog = document.getElementById("dreamLog");
+
+    function saveDream() {
+      const text = dreamInput.value.trim();
+      if (text) {
+        const entry = {
+          text: text,
+          date: new Date().toLocaleString()
+        };
+        addEntryToPage(entry);
+        storeEntry(entry);
+        dreamInput.value = "";
+      }
+    }
+
+    function addEntryToPage(entry) {
+      const div = document.createElement("div");
+      div.className = "p-4 bg-white/10 backdrop-blur-sm rounded-md border border-white/10";
+      div.innerHTML = `<p class="italic mb-2">"${entry.text}"</p><span class="text-sm text-indigo-200">${entry.date}</span>`;
+      dreamLog.prepend(div);
+    }
+
+    function storeEntry(entry) {
+      const dreams = JSON.parse(localStorage.getItem("dreams") || "[]");
+      dreams.push(entry);
+      localStorage.setItem("dreams", JSON.stringify(dreams));
+    }
+
+    function loadDreams() {
+      const dreams = JSON.parse(localStorage.getItem("dreams") || "[]");
+      dreams.forEach(addEntryToPage);
+    }
+
+    loadDreams();
+  </script>
+</body>
+</html>
