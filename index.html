@@ -6,24 +6,24 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      background: url('dreamscape.jpg') no-repeat center center fixed;
-background-size: cover;
-
+      background: url('dreamscape') no-repeat center center fixed;
+      background-size: cover;
       font-family: 'Georgia', serif;
+      color: #f8fafc;
     }
     ::placeholder {
       color: #cbd5e1;
     }
   </style>
 </head>
-<body class="min-h-screen text-slate-100 p-6 flex flex-col items-center">
+<body class="min-h-screen p-6 flex flex-col items-center backdrop-blur-sm bg-black/40">
 
   <h1 class="text-3xl mb-6 tracking-wide">🌙 My Dream Journal</h1>
 
   <textarea id="dreamInput"
             rows="5"
             placeholder="Write your dream here..."
-            class="w-full max-w-xl p-4 mb-4 bg-white/10 backdrop-blur-md rounded-lg border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+            class="w-full max-w-xl p-4 mb-4 bg-white/10 backdrop-blur-md rounded-lg border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-white">
   </textarea>
 
   <button onclick="saveDream()"
@@ -74,3 +74,4 @@ background-size: cover;
   </script>
 </body>
 </html>
+
