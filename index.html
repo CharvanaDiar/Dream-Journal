@@ -1,64 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Dream Journal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Quicksand&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-<style>
-  body {
-    background: url('Background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    font-family: 'Georgia', serif;
-    color: #f8fafc;
-  }
-  ::placeholder {
-    color: #cbd5e1;
-  }
-</style>
-
+      background: url('Background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Quicksand', sans-serif;
+      color: #ede9fe;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 2.5rem;
+      color: #f0e6f6;
+      text-shadow: 0 0 8px rgba(131, 58, 180, 0.7);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    ::placeholder {
+      color: #cbd5e1;
+      font-style: italic;
+    }
+    .container {
+      backdrop-blur: 12px;
+      background: rgba(255 255 255 / 0.1);
+      border-radius: 1rem;
+      padding: 2rem;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(131, 58, 180, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    textarea {
+      width: 100%;
+      background: rgba(255 255 255 / 0.15);
+      border: 1px solid rgba(255 255 255 / 0.25);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      font-size: 1rem;
+      color: #ede9fe;
+      resize: vertical;
+      font-family: 'Quicksand', sans-serif;
+      box-shadow: inset 0 0 8px rgba(255 255 255 / 0.15);
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    textarea:focus {
+      border-color: #7c3aed;
+      box-shadow: 0 0 10px #7c3aed;
+      background: rgba(255 255 255 / 0.25);
+    }
+    button {
+      cursor: pointer;
+      border-radius: 9999px;
+      padding: 0.5rem 1.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      color: white;
+      margin: 0.5rem;
+      box-shadow: 0 6px 15px rgba(124, 58, 237, 0.5);
+      background: linear-gradient(90deg, #7c3aed 0%, #4f46e5 100%);
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%);
+      box-shadow: 0 8px 20px rgba(124, 58, 237, 0.75);
+    }
+    #buttons {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 1rem;
+    }
+    #interpretation {
+      margin-top: 1.5rem;
+      width: 100%;
+      min-height: 80px;
+      background: rgba(124 58 237 / 0.15);
+      border-left: 6px solid #7c3aed;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      font-style: italic;
+      color: #d8b4fe;
+      box-shadow: 0 6px 12px rgba(124, 58, 237, 0.4);
+      text-align: center;
+    }
+    #dreamLog {
+      margin-top: 2rem;
+      width: 100%;
+      max-height: 280px;
+      overflow-y: auto;
+    }
+    .dream-entry {
+      font-family: 'Segoe Script', cursive;
+      background: rgba(255 255 255 / 0.15);
+      border-left: 4px solid #7c3aed;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      color: #ede9fe;
+      box-shadow: 0 4px 6px rgb(124 58 237 / 0.5);
+      margin-bottom: 1rem;
+      font-style: italic;
+      white-space: pre-wrap;
+    }
+  </style>
 </head>
-<body class="min-h-screen p-6 flex flex-col items-center backdrop-blur-sm bg-black/40">
+<body>
+  <div class="container" role="main">
+    <h1>🌙 My Dream Journal</h1>
 
-  <h1 class="text-3xl mb-6 tracking-wide">🌙 My Dream Journal</h1>
+    <textarea
+      id="dreamInput"
+      rows="5"
+      placeholder="Write your dream here..."
+      spellcheck="true"
+    ></textarea>
 
-  <textarea id="dreamInput"
-            rows="5"
-            placeholder="Write your dream here..."
-            class="w-full max-w-xl p-4 mb-4 bg-white/10 backdrop-blur-md rounded-lg border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-white">
-  </textarea>
+    <div id="buttons">
+      <button onclick="saveDream()">Save Dream</button>
+      <button onclick="interpretDream()" id="interpretBtn">Interpret Dream</button>
+    </div>
 
-  <button onclick="saveDream()"
-          class="px-6 py-2 bg-indigo-500 hover:bg-indigo-600 rounded-full shadow-md transition-all">
-    Save Dream
-  </button>
+    <div id="interpretation"></div>
 
-  <div id="dreamLog" class="mt-8 w-full max-w-xl space-y-4">
-    <!-- Past dreams will appear here -->
+    <div id="dreamLog"></div>
   </div>
 
   <script>
     const dreamInput = document.getElementById("dreamInput");
     const dreamLog = document.getElementById("dreamLog");
+    const interpretationDiv = document.getElementById("interpretation");
+    const interpretBtn = document.getElementById("interpretBtn");
 
+    // Save dreams locally as before
     function saveDream() {
       const text = dreamInput.value.trim();
       if (text) {
         const entry = {
           text: text,
-          date: new Date().toLocaleString()
+          date: new Date().toLocaleString(),
         };
         addEntryToPage(entry);
         storeEntry(entry);
         dreamInput.value = "";
+        interpretationDiv.innerText = ""; // clear interpretation on save
       }
     }
 
     function addEntryToPage(entry) {
       const div = document.createElement("div");
-      div.className = "p-4 bg-white/10 backdrop-blur-sm rounded-md border border-white/10";
-      div.innerHTML = `<p class="italic mb-2">"${entry.text}"</p><span class="text-sm text-indigo-200">${entry.date}</span>`;
+      div.className = "dream-entry";
+      div.innerHTML = `<p>"${entry.text}"</p><span class="text-sm">${entry.date}</span>`;
       dreamLog.prepend(div);
     }
 
@@ -73,8 +177,13 @@
       dreams.forEach(addEntryToPage);
     }
 
+    // Dummy interpretDream function for now (no AI)
+    function interpretDream() {
+      interpretationDiv.innerText =
+        "Dream interpretation coming soon! ✨ For now, try to reflect on what this dream means to *you*.";
+    }
+
     loadDreams();
   </script>
 </body>
 </html>
-
